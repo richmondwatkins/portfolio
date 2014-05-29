@@ -7,7 +7,28 @@ html
     link(href='/css/buttons.css', rel='stylesheet')
     link(href='/less/app.css', rel='stylesheet')
   body
-    block content
+  
+  #nav
+    ul
+      li
+        a(href='/') Home
+      li
+         a(href='/about') About
+      li
+        a(href='/resume') Resume
+      li
+        a(href='/faq') FAQ
+      li
+        a(href='/portfolios') Portoflio
+      if(user)
+        li: a(href='/portfolio/new') New Project
+
+        li: a(href='/logout')= user.email
+
+
+
+
+  block content
 
     script(src='/js/vendor/jquery-2.1.1.js')
     script(src='/js/vendor/lodash-2.4.1.js')

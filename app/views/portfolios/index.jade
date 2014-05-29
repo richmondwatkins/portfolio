@@ -1,0 +1,22 @@
+extends ../shared/template
+
+block content
+  .header
+    h1#click Projects
+  #container
+  each portfolio in portfolios
+    a(href='http://#{portfolio.app}')
+      .projects
+          h3#title= portfolio.title
+          h4#description=portfolio.description
+          h5#tags= portfolio.tags
+          each photo in portfolio.photos
+            #photos
+              img(src='/img/#{portfolio.title}/#{photo}')
+          a(href='#{portfolio.git}')
+            #git(data-tooltip='#git')
+
+          h5#date Create on: #{portfolio.date}
+
+block scripts
+  script(src='/js/es6/compiled/main.js')
