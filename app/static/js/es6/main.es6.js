@@ -4,14 +4,16 @@
   $(document).ready(init);
 
   function init(){
-
-    $('#click').click( photod);
+  $('.form-edit').hide();
+  $('body').on('click', '#show-edit', edit);
   }
 
 
 
-  function photod(){
-    alert('hey');
+  function edit(){
+
+    $(this).next('.form-edit').slideToggle();
+
   }
 
 

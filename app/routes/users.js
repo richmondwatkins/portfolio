@@ -4,34 +4,29 @@ var traceur = require('traceur');
 var User = traceur.require(__dirname + '/../models/user.js');
 
 exports.login = (req, res)=>{
-  res.render('users/login', {title: 'Login'});
+  res.render('users/login', {title: 'Portfolio: Login'});
 };
 
-
 exports.authenticate = (req, res)=>{
-  User.login(req.body, user=>{
-    if(user){
-      req.session.userId = user._id;
-      res.redirect('/portfolios');
-    }else {
+  User.login(req.body, u=>{
+    if(u){
+      req.session.userId = u._id;
+      res.redirect('/projects');
+    }else{
       req.session.userId = null;
       res.redirect('/login');
     }
-
   });
-  // res.render('users/login', {title: 'Login'});
 };
 
 exports.lookup = (req, res, next)=>{
-  User.findByUserId(req.session.userId, user=>{
-    res.locals.user = user;
-    console.log('user user user');
-    console.log(res.locals.user);
+  User.findByUserId(req.session.userId, u=>{
+    res.locals.user = u;
     next();
   });
 };
 
 exports.logout = (req, res)=>{
   req.session.userId = null;
-  res.render('users/login', {title: 'Login'});
+  res.redirect('/');
 };

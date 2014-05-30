@@ -16,19 +16,27 @@ module.exports = (req, res, next)=>{
 function load(app, fn){
   var home = traceur.require(__dirname + '/../routes/home.js');
   var users = traceur.require(__dirname + '/../routes/users.js');
-  var portfolios = traceur.require(__dirname + '/../routes/portfolios.js');
+  var projects = traceur.require(__dirname + '/../routes/projects.js');
 
-  app.all('*', dbg, users.lookup);
+  app.all('*', users.lookup);
+
   app.get('/', dbg, home.index);
   app.get('/about', dbg, home.about);
   app.get('/faq', dbg, home.faq);
+  app.get('/contact', dbg, home.contact);
   app.get('/resume', dbg, home.resume);
+
   app.get('/login', dbg, users.login);
   app.post('/login', dbg, users.authenticate);
-  app.get('/portfolios', dbg, portfolios.index);
   app.get('/logout', dbg, users.logout);
-  app.get('/portfolio/new', dbg, portfolios.new);
-  app.post('/portfolios', dbg, portfolios.create);
+
+  app.get('/projects', dbg, projects.index);
+  app.post('/projects', dbg, projects.create);
+  app.get('/projects/new', dbg, projects.new);
+  app.get('/projects/:id', dbg, projects.show);
+
+  app.post('/projects/:projectId/delete', dbg, projects.destroy);
+  app.post('/projects/:projectId/edit', dbg, projects.edit);
 
   console.log('Routes Loaded');
   fn();

@@ -1,0 +1,37 @@
+extends ../shared/template
+
+block content
+  h1 Projects
+
+  #projects
+    each project in projects
+      .projects
+        h1#title: a(href='/projects/#{project._id}')= project.title
+        #photos
+            each photo in project.photos
+              img(src='#{photo}')
+        h2#description= project.description
+        h2#date= project.date
+        h2#tags= project.tags
+
+
+        a(href=project.git)
+          #git
+        #app
+           a(href=project.app) Go to App
+        if(user)
+          form(action='projects/#{project._id}/delete', method='post')
+            button#delete X
+          button#show-edit Edit
+          form.form-edit(action='projects/#{project._id}/edit', method='post')
+            input(type='text', name='title', placeholder='Title')
+            textarea(name='description', placeholder='Description')
+            input(type='text', name='tags', placeholder='Tags')
+            input(type='text', name='git', placeholder='Git Url')
+            input(type='text', name='app', placeholder='App Url')
+            input(type='date', name='date')
+            button#save-edit Save
+
+
+//- block scripts
+//-   script(src='/js/es6/compiled/main.js')

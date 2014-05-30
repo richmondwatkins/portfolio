@@ -13,21 +13,17 @@ class User{
           fn(u);
         }else{
           fn(null);
+        }
+      }else{
+        fn(null);
       }
-    }else{
-      fn(null);
-    }
-  });
-}
-
+    });
+  }
 
   static findByUserId(userId, fn){
-    console.log(userId);
     userId = Mongo.ObjectID(userId);
     users.findOne({_id:userId}, (e,u)=>fn(u));
   }
-
-
 }
 
 module.exports = User;
